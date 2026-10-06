@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="CallSync — ИИ-колл менеджер: обзванивает клиентов, отвечает на вопросы и записывает на услуги живым голосом. Итог каждого звонка — в Telegram.">
+<meta property="og:title" content="CallSync — ИИ-менеджер, который не устаёт звонить">
+<meta property="og:description" content="ИИ обзванивает ваших клиентов и присылает итог в Telegram.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#060A1C">
+<title>CallSync — ИИ-колл менеджер</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2048%2048%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%235CE1FF%22/%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%239B7BFF%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle%20cx%3D%2224%22%20cy%3D%2224%22%20r%3D%2224%22%20fill%3D%22url%28%23g%29%22/%3E%3Cg%20fill%3D%22%23060A1C%22%3E%3Crect%20x%3D%2211%22%20y%3D%2220%22%20width%3D%224%22%20height%3D%228%22%20rx%3D%222%22/%3E%3Crect%20x%3D%2217.5%22%20y%3D%2214%22%20width%3D%224%22%20height%3D%2220%22%20rx%3D%222%22/%3E%3Crect%20x%3D%2224%22%20y%3D%2210%22%20width%3D%224%22%20height%3D%2228%22%20rx%3D%222%22/%3E%3Crect%20x%3D%2230.5%22%20y%3D%2216%22%20width%3D%224%22%20height%3D%2216%22%20rx%3D%222%22/%3E%3Crect%20x%3D%2237%22%20y%3D%2221%22%20width%3D%222%22%20height%3D%226%22%20rx%3D%221%22/%3E%3C/g%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;900&family=Onest:wght@400;500;700&family=Bricolage+Grotesque:opsz,wght@12..96,800&display=swap">
+<style>
+/* Тёмно-синяя ночь: глубокий navy-фон, электрический синий свет, коралловая кнопка как единственный тёплый акцент */
+:root{
+  --bg:#060A1C;
+  --bg-2:#0B1336;
+  --line:rgba(140,170,255,.16);
+  --glass:rgba(120,150,255,.07);
+  --fg:#EEF2FF;
+  --muted:#9AA6CF;
+  --blue:#4D7CFF;
+  --cyan:#5CE1FF;
+  --coral:#FF7A90;
+  --violet:#9B7BFF;
+  --ink-on-coral:#1A0B22;
+  --display:"Unbounded", system-ui, sans-serif;
+  --body:"Onest", system-ui, -apple-system, "Segoe UI", sans-serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--bg);color:var(--fg);font-family:var(--body);font-size:16px;line-height:1.55;
+  background-image:
+    radial-gradient(900px 600px at 85% -10%, rgba(77,124,255,.35), transparent 60%),
+    radial-gradient(700px 500px at -10% 40%, rgba(92,225,255,.10), transparent 60%);
+  background-repeat:no-repeat;
+}
+.wrap{max-width:1160px;margin:0 auto;padding-inline:clamp(16px,4vw,40px)}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--cyan);outline-offset:3px;border-radius:8px}
+
+/* nav */
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;backdrop-filter:blur(14px);background:rgba(6,10,28,.65);border-bottom:1px solid var(--line)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:14px}
+.logo{font-family:"Bricolage Grotesque",var(--display);font-weight:800;font-size:23px;letter-spacing:-.04em;text-decoration:none;display:flex;align-items:center;gap:10px}
+.logo svg{width:34px;height:34px;flex:none}
+.logo b{font-weight:800;background:linear-gradient(90deg,var(--cyan),var(--violet));-webkit-background-clip:text;background-clip:text;color:transparent}
+.links{display:flex;gap:28px;font-size:15px;color:var(--muted)}
+.links a{text-decoration:none}
+.links a:hover{color:var(--fg)}
+@media (max-width:760px){.links{display:none}}
+
+.btn{display:inline-flex;align-items:center;gap:10px;text-decoration:none;font-weight:700;border-radius:999px;white-space:nowrap;transition:transform .2s, box-shadow .2s}
+.btn svg{width:18px;height:18px;flex:none}
+.btn-coral{background:var(--coral);color:var(--ink-on-coral);padding:14px 24px;box-shadow:0 10px 30px -10px rgba(255,122,144,.7)}
+.btn-coral:hover{transform:translateY(-2px);box-shadow:0 16px 36px -10px rgba(255,122,144,.85)}
+.btn-sm{padding:9px 16px;font-size:14px}
+.btn-ghost{border:1px solid var(--line);padding:13px 22px;color:var(--fg)}
+.btn-ghost:hover{background:var(--glass)}
+
+/* hero */
+.hero{display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:center;padding-block:clamp(48px,8vw,96px) clamp(56px,8vw,96px)}
+.hero>*{min-width:0}
+@media (max-width:880px){.hero{grid-template-columns:1fr;gap:40px}}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--cyan);border:1px solid var(--line);background:var(--glass);padding:6px 12px;border-radius:999px;margin-bottom:24px}
+.eyebrow::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--cyan);box-shadow:0 0 10px var(--cyan)}
+h1{font-family:var(--display);font-weight:900;font-size:clamp(38px,6.6vw,78px);line-height:.98;letter-spacing:-.04em;margin:0 0 24px;text-wrap:balance}
+h1 em{font-style:normal;background:linear-gradient(90deg,var(--blue),var(--cyan));-webkit-background-clip:text;background-clip:text;color:transparent}
+.lead{font-size:clamp(17px,1.6vw,19px);color:var(--muted);max-width:46ch;margin:0 0 32px}
+.cta-row{display:flex;flex-wrap:wrap;gap:12px}
+
+/* call card */
+.call{position:relative;background:linear-gradient(180deg,rgba(77,124,255,.14),rgba(77,124,255,.04));border:1px solid var(--line);border-radius:26px;padding:22px;box-shadow:0 40px 80px -40px rgba(77,124,255,.6)}
+.call-top{display:flex;justify-content:space-between;align-items:center;font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.live{display:flex;align-items:center;gap:8px;color:var(--coral);font-weight:500}
+.live::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--coral);animation:pulse 1.2s infinite}
+@keyframes pulse{50%{opacity:.25}}
+.who{display:flex;align-items:center;gap:12px;margin:18px 0 6px}
+.avatar{width:44px;height:44px;flex:none}
+.who b{display:block;font-size:15px}
+.who span{font-size:13px;color:var(--muted)}
+.wave{display:flex;align-items:center;gap:4px;height:56px;margin:12px 0 16px}
+.wave span{flex:1;height:100%;border-radius:3px;background:linear-gradient(180deg,var(--cyan),var(--blue));animation:w 1s ease-in-out infinite alternate;transform-origin:center}
+@keyframes w{from{transform:scaleY(.2)}to{transform:scaleY(1)}}
+.msgs{display:grid;gap:10px;font-size:14px;line-height:1.45}
+.msg{padding:10px 14px;border-radius:16px;max-width:88%}
+.msg small{display:block;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:2px}
+.msg.ai{background:rgba(77,124,255,.22);border-bottom-left-radius:6px}
+.msg.me{background:rgba(255,255,255,.07);justify-self:end;border-bottom-right-radius:6px}
+.result{margin-top:14px;display:flex;align-items:center;gap:10px;font-size:13px;color:var(--fg);background:rgba(92,225,255,.08);border:1px solid rgba(92,225,255,.25);padding:10px 12px;border-radius:12px}
+.result b{color:var(--cyan)}
+
+/* sections */
+section.block{padding-block:clamp(56px,8vw,104px);border-top:1px solid var(--line)}
+.kicker{font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--cyan);margin:0 0 14px}
+h2{font-family:var(--display);font-weight:700;font-size:clamp(28px,4vw,46px);line-height:1.05;letter-spacing:-.03em;margin:0 0 16px;text-wrap:balance;max-width:20ch}
+.sub{color:var(--muted);max-width:56ch;margin:0 0 44px;font-size:17px}
+
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;counter-reset:s}
+@media (max-width:820px){.steps{grid-template-columns:1fr}}
+.step{position:relative;padding:28px;border-radius:22px;background:var(--glass);border:1px solid var(--line);min-width:0}
+.step-n{font-family:var(--display);font-weight:900;font-size:56px;line-height:1;letter-spacing:-.04em;background:linear-gradient(180deg,var(--blue),transparent);-webkit-background-clip:text;background-clip:text;color:transparent;margin-bottom:18px}
+.step h3{font-family:var(--display);font-weight:500;font-size:19px;margin:0 0 10px;letter-spacing:-.01em}
+.step p{margin:0;color:var(--muted);font-size:15px}
+
+.team{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+@media (max-width:960px){.team{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:460px){.team{grid-template-columns:1fr}}
+.member{padding:24px;border-radius:22px;background:var(--glass);border:1px solid var(--line);display:flex;flex-direction:column;gap:16px;min-width:0;transition:border-color .2s, transform .2s}
+.member:hover{border-color:rgba(92,225,255,.4);transform:translateY(-3px)}
+.member .ph{width:72px;height:72px;border-radius:20px;display:grid;place-items:center;font-family:var(--display);font-weight:700;font-size:22px;color:var(--bg);background:linear-gradient(135deg,var(--blue),var(--cyan))}
+.member.curator .ph{background:linear-gradient(135deg,var(--coral),#FFB37A)}
+.member b{font-size:18px;display:block}
+.member span{color:var(--muted);font-size:14px}
+.tag{align-self:flex-start;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--coral);border:1px solid rgba(255,122,144,.4);padding:4px 10px;border-radius:999px}
+
+/* contact */
+.contact{position:relative;overflow:hidden;border-radius:32px;padding:clamp(32px,6vw,72px);background:linear-gradient(135deg,#1630A8 0%,#0B1650 60%,#0A0F33 100%);border:1px solid var(--line);display:grid;grid-template-columns:1.3fr .7fr;gap:32px;align-items:center}
+.contact>*{min-width:0;position:relative}
+.contact::after{content:"";position:absolute;width:420px;height:420px;right:-120px;top:-160px;border-radius:50%;background:radial-gradient(circle,rgba(92,225,255,.35),transparent 65%)}
+@media (max-width:820px){.contact{grid-template-columns:1fr}}
+.contact h2{max-width:none}
+.contact p{color:#C6D0F5;margin:0;max-width:46ch}
+.tg-box{display:grid;gap:12px;justify-items:start}
+.handle{display:flex;flex-wrap:wrap;align-items:center;gap:8px;font-variant-numeric:tabular-nums;color:#C6D0F5;font-size:15px}
+.tg-link{color:var(--cyan);font-weight:700;text-decoration:underline;text-underline-offset:3px}.tg-link:hover{color:var(--fg)}
+.copy{background:none;border:1px solid var(--line);color:var(--muted);border-radius:8px;padding:4px 10px;font:inherit;font-size:13px;cursor:pointer}
+.copy:hover{color:var(--fg)}
+
+footer{padding-block:40px;color:var(--muted);font-size:14px}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <linearGradient id="gEq" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5CE1FF"/><stop offset="1" stop-color="#9B7BFF"/></linearGradient>
+  <symbol id="logo" viewBox="0 0 48 48">
+    <circle cx="24" cy="24" r="24" fill="url(#gEq)"/>
+    <rect x="11" y="20" width="4" height="8" rx="2" fill="#060A1C"/>
+    <rect x="17.5" y="14" width="4" height="20" rx="2" fill="#060A1C"/>
+    <rect x="24" y="10" width="4" height="28" rx="2" fill="#060A1C"/>
+    <rect x="30.5" y="16" width="4" height="16" rx="2" fill="#060A1C"/>
+    <rect x="37" y="21" width="2" height="6" rx="1" fill="#060A1C"/>
+  </symbol>
+  <symbol id="tg" viewBox="0 0 24 24"><path fill="currentColor" d="M21.9 4.3 18.7 19.4c-.2 1-.9 1.3-1.7.8l-4.8-3.5-2.3 2.2c-.3.3-.5.5-1 .5l.3-4.9 9-8.1c.4-.3-.1-.5-.6-.2L6.5 13.2 1.8 11.7c-1-.3-1-1 .2-1.5L20.5 3c.9-.3 1.6.2 1.4 1.3Z"/></symbol>
+  <symbol id="ph" viewBox="0 0 24 24"><path fill="currentColor" d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1l-2.3 2.2Z"/></symbol>
+</svg>
+
+<nav class="nav">
+  <div class="wrap">
+    <a class="logo" href="#top" aria-label="CallSync"><svg><use href="#logo"/></svg><span>Call<b>Sync</b></span></a>
+    <div class="links"><a href="#how">Как работает</a><a href="#team">Команда</a><a href="#contact">Контакты</a></div>
+    <a class="btn btn-coral btn-sm" href="https://t.me/motya10" target="_blank" rel="noopener"><svg><use href="#tg"/></svg>Telegram</a>
+  </div>
+</nav>
+
+<main id="top">
+  <div class="wrap hero">
+    <div>
+      <div class="eyebrow">ИИ-колл менеджер</div>
+      <h1>Менеджер, который <em>не&nbsp;устаёт</em> звонить</h1>
+      <p class="lead">ИИ обзванивает ваших клиентов, отвечает на вопросы и записывает на услуги. Живым голосом, без пауз и выходных. Итог каждого разговора приходит вам в Telegram.</p>
+      <div class="cta-row">
+        <a class="btn btn-coral" href="https://t.me/motya10" target="_blank" rel="noopener"><svg><use href="#tg"/></svg>Написать в Telegram</a>
+        <a class="btn btn-ghost" href="#how">Как это работает</a>
+      </div>
+    </div>
+
+    <div class="call" aria-label="Пример звонка ИИ-менеджера">
+      <div class="call-top"><span class="live">Идёт звонок</span><span id="timer">00:42</span></div>
+      <div class="who"><svg class="avatar" aria-hidden="true"><use href="#logo"/></svg><div><b>CallSync → Анна К.</b><span>Салон красоты · напоминание о записи</span></div></div>
+      <div class="wave" aria-hidden="true">
+        <span style="animation-delay:0s"></span><span style="animation-delay:.3s"></span><span style="animation-delay:.15s"></span><span style="animation-delay:.45s"></span><span style="animation-delay:.05s"></span><span style="animation-delay:.35s"></span><span style="animation-delay:.2s"></span><span style="animation-delay:.5s"></span><span style="animation-delay:.1s"></span><span style="animation-delay:.4s"></span><span style="animation-delay:.25s"></span><span style="animation-delay:.55s"></span><span style="animation-delay:.08s"></span><span style="animation-delay:.38s"></span>
+      </div>
+      <div class="msgs">
+        <div class="msg ai"><small>ИИ</small>Анна, добрый вечер! Напоминаю о записи завтра в 15:00. Удобно будет прийти на час позже?</div>
+        <div class="msg me"><small>Клиент</small>Да, 16:00 даже лучше.</div>
+        <div class="msg ai"><small>ИИ</small>Отлично, перенёс. До встречи!</div>
+      </div>
+      <div class="result">✓ <span>Запись перенесена на <b>16:00</b>, отчёт отправлен в Telegram</span></div>
+    </div>
+  </div>
+
+  <section class="block" id="how">
+    <div class="wrap">
+      <p class="kicker">Как работает</p>
+      <h2>Три шага до первого звонка</h2>
+      <p class="sub">Не нужно ничего устанавливать или обучать сотрудников. Вы рассказываете о задаче, остальное делает ИИ.</p>
+      <div class="steps">
+        <div class="step"><div class="step-n">01</div><h3>Даёте задачу</h3><p>Список клиентов и цель звонка: напомнить о записи, предложить услугу или собрать отзывы.</p></div>
+        <div class="step"><div class="step-n">02</div><h3>ИИ звонит</h3><p>Разговаривает живым голосом, отвечает на вопросы и сам подстраивается под собеседника.</p></div>
+        <div class="step"><div class="step-n">03</div><h3>Получаете итог</h3><p>Кто согласился, кто перезвонит и кому что интересно. Всё приходит в Telegram сразу после звонка.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="team">
+    <div class="wrap">
+      <p class="kicker">Команда</p>
+      <h2>Кто стоит за CallSync</h2>
+      <p class="sub">Трое основателей и куратор. Мы сами пишем код, сами тестируем звонки и общаемся с каждым клиентом.</p>
+      <div class="team">
+        <div class="member"><div class="ph">М</div><div><b>Матвей</b><span>CEO · генеральный директор</span></div></div>
+        <div class="member"><div class="ph">П</div><div><b>Павел</b><span>CTO · технический директор</span></div></div>
+        <div class="member"><div class="ph">Я</div><div><b>Ярослав</b><span>CMO · директор по маркетингу</span></div></div>
+        <div class="member curator"><div class="ph">М</div><div><b>Михаил</b><span>Лидер проекта</span></div><span class="tag">Куратор</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="contact">
+    <div class="wrap">
+      <div class="contact">
+        <div>
+          <p class="kicker">Контакты</p>
+          <h2>Хотите, чтобы ИИ позвонил вашим клиентам?</h2>
+          <p>Напишите нам в Telegram. Расскажем, как это будет работать именно у вас, и сделаем тестовый звонок.</p>
+        </div>
+        <div class="tg-box">
+          <a class="btn btn-coral" href="https://t.me/motya10" target="_blank" rel="noopener"><svg><use href="#tg"/></svg>Написать в Telegram</a>
+          <div class="handle"><span>или найдите нас:</span> <a id="handle" class="tg-link" href="https://t.me/motya10" target="_blank" rel="noopener">@motya10</a><button class="copy" id="copy" type="button">Копировать</button></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap"><span>© 2026 CallSync · ИИ-колл менеджер</span><span>Сделано в России</span></div>
+</footer>
+
+<script>
+(function(){
+  var t=document.getElementById('timer'),s=42;
+  setInterval(function(){s++;var m=Math.floor(s/60),x=s%60;t.textContent=(m<10?'0':'')+m+':'+(x<10?'0':'')+x;},1000);
+  var b=document.getElementById('copy'),h=document.getElementById('handle');
+  b.addEventListener('click',function(){
+    var done=function(){b.textContent='Скопировано';setTimeout(function(){b.textContent='Копировать'},1600)};
+    var sel=function(){var r=document.createRange();r.selectNodeContents(h);var w=getSelection();w.removeAllRanges();w.addRange(r);b.textContent='Выделено, нажмите Ctrl+C'};
+    try{navigator.clipboard.writeText(h.textContent).then(done,sel)}catch(e){sel()}
+  });
+})();
+</script>
+
+</body>
+</html>
